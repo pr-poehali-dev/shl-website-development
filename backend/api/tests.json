@@ -1,0 +1,24 @@
+{
+  "tests": [
+    {
+      "name": "Get standings",
+      "method": "GET",
+      "path": "/?endpoint=standings",
+      "expectedStatus": 200,
+      "expectedBody": {
+        "conferences": "array"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Get schedule",
+      "method": "GET",
+      "path": "/?endpoint=schedule",
+      "expectedStatus": 200,
+      "expectedBody": {
+        "matches": "array"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}
