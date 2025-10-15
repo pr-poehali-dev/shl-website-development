@@ -74,10 +74,7 @@ const StandingsTab = () => {
                   <TableHead className="text-center text-accent font-bold">И</TableHead>
                   <TableHead className="text-center text-accent font-bold">В</TableHead>
                   <TableHead className="text-center text-accent font-bold">П</TableHead>
-                  <TableHead className="text-center text-accent font-bold">ПО</TableHead>
                   <TableHead className="text-center text-accent font-bold">О</TableHead>
-                  <TableHead className="text-center text-accent font-bold">Ш</TableHead>
-                  <TableHead className="text-center text-accent font-bold">П</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -91,10 +88,7 @@ const StandingsTab = () => {
                     <TableCell className="text-center">{team.games_played}</TableCell>
                     <TableCell className="text-center text-green-400">{team.wins}</TableCell>
                     <TableCell className="text-center text-red-400">{team.losses}</TableCell>
-                    <TableCell className="text-center text-yellow-400">{team.overtime_losses}</TableCell>
                     <TableCell className="text-center font-bold text-accent">{team.points}</TableCell>
-                    <TableCell className="text-center">{team.goals_for}</TableCell>
-                    <TableCell className="text-center">{team.goals_against}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>

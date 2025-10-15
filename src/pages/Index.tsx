@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { Input } from '@/components/ui/input';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Icon from '@/components/ui/icon';
@@ -10,6 +12,8 @@ import AdminPanel from '@/components/AdminPanel';
 
 const Index = () => {
   const [showAdmin, setShowAdmin] = useState(false);
+  const [showPasswordDialog, setShowPasswordDialog] = useState(false);
+  const [password, setPassword] = useState('');
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/10">
@@ -20,10 +24,16 @@ const Index = () => {
             <h1 className="text-6xl font-black gradient-text">СХЛ</h1>
             <Icon name="Trophy" size={48} className="text-accent" />
           </div>
-          <p className="text-xl text-muted-foreground">Студенческая Хоккейная Лига</p>
+          <p className="text-xl text-muted-foreground">Соединённая Хоккейная Лига</p>
           
           <Button
-            onClick={() => setShowAdmin(!showAdmin)}
+            onClick={() => {
+              if (showAdmin) {
+                setShowAdmin(false);
+              } else {
+                setShowPasswordDialog(true);
+              }
+            }}
             variant="outline"
             className="mt-6 border-accent text-accent hover:bg-accent hover:text-accent-foreground transition-all duration-300"
           >
@@ -31,6 +41,43 @@ const Index = () => {
             Админ-панель
           </Button>
         </header>
+
+        <Dialog open={showPasswordDialog} onOpenChange={setShowPasswordDialog}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Вход в админ-панель</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4">
+              <Input
+                type="password"
+                placeholder="Введите пароль"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    if (password === '12344321') {
+                      setShowAdmin(true);
+                      setShowPasswordDialog(false);
+                      setPassword('');
+                    }
+                  }
+                }}
+              />
+              <Button
+                onClick={() => {
+                  if (password === '12344321') {
+                    setShowAdmin(true);
+                    setShowPasswordDialog(false);
+                    setPassword('');
+                  }
+                }}
+                className="w-full gradient-blue-red"
+              >
+                Войти
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
 
         {showAdmin ? (
           <AdminPanel onClose={() => setShowAdmin(false)} />
