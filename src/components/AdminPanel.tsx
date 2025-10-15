@@ -6,6 +6,7 @@ import Icon from '@/components/ui/icon';
 import AdminTeams from '@/components/admin/AdminTeams';
 import AdminSchedule from '@/components/admin/AdminSchedule';
 import AdminRegulations from '@/components/admin/AdminRegulations';
+import AdminConferences from '@/components/admin/AdminConferences';
 
 interface AdminPanelProps {
   onClose: () => void;
@@ -28,8 +29,15 @@ const AdminPanel = ({ onClose }: AdminPanelProps) => {
         </div>
       </CardHeader>
       <CardContent>
-        <Tabs defaultValue="teams" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-8 bg-muted/50">
+        <Tabs defaultValue="conferences" className="w-full">
+          <TabsList className="grid w-full grid-cols-4 mb-8 bg-muted/50">
+            <TabsTrigger 
+              value="conferences"
+              className="data-[state=active]:gradient-blue-red data-[state=active]:text-white"
+            >
+              <Icon name="Trophy" size={20} className="mr-2" />
+              Конференции
+            </TabsTrigger>
             <TabsTrigger 
               value="teams"
               className="data-[state=active]:gradient-blue-red data-[state=active]:text-white"
@@ -52,6 +60,10 @@ const AdminPanel = ({ onClose }: AdminPanelProps) => {
               Регламент
             </TabsTrigger>
           </TabsList>
+
+          <TabsContent value="conferences">
+            <AdminConferences />
+          </TabsContent>
 
           <TabsContent value="teams">
             <AdminTeams />

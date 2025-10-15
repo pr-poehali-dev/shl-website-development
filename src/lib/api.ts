@@ -30,4 +30,11 @@ export const api = {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(regulation)
   }).then(r => r.json()),
+  
+  getConferences: () => fetch(`${API_URL}?endpoint=admin/conferences`).then(r => r.json()),
+  updateConference: (conference: any) => fetch(`${API_URL}?endpoint=admin/conferences`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(conference)
+  }).then(r => r.json()),
 };

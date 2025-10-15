@@ -247,6 +247,34 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             'isBase64Encoded': False
         }
     
+    if endpoint == 'admin/conferences' and method == 'GET':
+        cur.execute('SELECT id, name FROM conferences ORDER BY id')
+        conferences_rows = cur.fetchall()
+        conferences = []
+        for row in conferences_rows:
+            conferences.append({'id': row[0], 'name': row[1]})
+        cur.close()
+        conn.close()
+        return {
+            'statusCode': 200,
+            'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
+            'body': json.dumps({'conferences': conferences}),
+            'isBase64Encoded': False
+        }
+    
+    if endpoint == 'admin/conferences' and method == 'PUT':
+        body_data = json.loads(event.get('body', '{}'))
+        cur.execute('UPDATE conferences SET name = %s WHERE id = %s', (body_data.get('name'), body_data.get('id')))
+        conn.commit()
+        cur.close()
+        conn.close()
+        return {
+            'statusCode': 200,
+            'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
+            'body': json.dumps({'success': True}),
+            'isBase64Encoded': False
+        }
+    
     cur.close()
     conn.close()
     return {
